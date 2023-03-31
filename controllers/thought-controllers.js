@@ -70,6 +70,19 @@ const thoughtController = {
       .catch(err => res.status(500).json(err));
   },
 
+   // delete a thought by id
+  deleteThought({ params }, res) {
+    Thought.findOneAndDelete({ _id: params.id })
+      .then(dbThoughtData => {
+        if (!dbThoughtData) {
+          res.status(404).json({ message: 'No thought found with this id!' });
+          return;
+        }
+        res.json({ message: 'Thought deleted successfully!' });
+      })
+      .catch(err => res.status(500).json(err));
+  },
+
  // create a reaction
  createReaction({ params, body }, res) {
     Thought.findOneAndUpdate(
