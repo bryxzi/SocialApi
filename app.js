@@ -1,21 +1,22 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const routes = require('./routes');
 
 const app = express();
 const PORT = process.env.PORT || 3001;
 
-// Parse incoming JSON data
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Can likely delete now that ive added to connection.js
-// Connect to MongoDB database using the connection URI in the environment variable
-mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/social-network-api', {
+app.use(routes);
+
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/social-network', {
   useNewUrlParser: true,
   useUnifiedTopology: true,
   useCreateIndex: true,
   useFindAndModify: false
 });
 
-// Start the server and listen on the specified port
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+app.listen(PORT, () => {
+  console.log(`App running on port ${PORT}!`);
+});
