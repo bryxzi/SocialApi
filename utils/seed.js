@@ -11,11 +11,9 @@ const seedDatabase = async () => {
     const createdThoughts = await Thought.insertMany(thoughtData);
 
     console.log('Database seeded!');
-    process.exit(0);
   } catch (err) {
     console.error(err);
-    process.exit(1);
   }
 };
 
-seedDatabase();
+module.exports = seedDatabase;
